@@ -18,22 +18,17 @@ const Todo: React.FC = () => {
     <div className="App">
       <div className="container">
         <h3>Todo App</h3>
-        <InputGroup className="mb-3">
-          <InputGroup.Checkbox
-            onChange={() => _handleCheck(0)}
-            checked={checks[0]}
-          />
-          <Form.Control value={data[0]} readOnly />
-          {checks[0] ? <Badge bg="secondary">complete</Badge> : ""}
-        </InputGroup>
-        <InputGroup className="mb-3">
-          <InputGroup.Checkbox
-            onChange={() => _handleCheck(1)}
-            checked={checks[1]}
-          />
-          <Form.Control value={data[1]} readOnly />
-          {checks[1] ? <Badge bg="secondary">complete</Badge> : ""}
-        </InputGroup>
+
+        {data.map((item, index) => (
+          <InputGroup key={index} className="mb-3">
+            <InputGroup.Checkbox
+              onChange={() => _handleCheck(index)}
+              checked={checks[index]}
+            />
+            <Form.Control value={item} readOnly />
+            {checks[index] ? <Badge bg="secondary">complete</Badge> : ""}
+          </InputGroup>
+        ))}
       </div>
     </div>
   );
