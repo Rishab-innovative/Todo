@@ -2,18 +2,27 @@ import React, { useState } from "react";
 import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 const Todo: React.FC = () => {
-  const data: string[] = ["shopping", "homeWork"];
+  const [data, setData] = useState<string[]>(["shopping", "homeWork"]);
   const [checks, setChecks] = useState<boolean[]>([false, false]);
+  const [inputValue, setInputValue] = useState<string>("");
 
   const _handleCheck = (index: number) => {
     const newChecks: boolean[] = [...checks];
     newChecks[index] = !newChecks[index];
     setChecks(newChecks);
   };
+
+  const _add = () => {
+    data.unshift(inputValue);
+    setData([...data]);
+  };
+
   return (
     <div className="App">
       <div className="container">
@@ -29,6 +38,18 @@ const Todo: React.FC = () => {
             {checks[index] ? <Badge bg="secondary">complete</Badge> : ""}
           </InputGroup>
         ))}
+
+        <h3>Todo</h3>
+        <InputGroup className="mb-3">
+          <Form.Control
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+            onChange={(event) => setInputValue(event.target.value)}
+          />
+        </InputGroup>
+        <Button variant="light" className="custom-button" onClick={_add}>
+          Submit
+        </Button>
       </div>
     </div>
   );
