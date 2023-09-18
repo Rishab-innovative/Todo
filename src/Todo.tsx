@@ -19,8 +19,14 @@ const Todo: React.FC = () => {
   };
 
   const _add = () => {
-    data.unshift(inputValue);
-    setData([...data]);
+    if (inputValue === "") {
+      const temp: any = document.querySelector<HTMLElement>(".inputField");
+      temp.style.borderColor = "red";
+    } else {
+      data.unshift(inputValue);
+      setData([...data]);
+      setInputValue("");
+    }
   };
 
   return (
@@ -42,6 +48,9 @@ const Todo: React.FC = () => {
         <h3>Todo</h3>
         <InputGroup className="mb-3">
           <Form.Control
+            className="inputField"
+            placeholder="Your Todo..."
+            value={inputValue}
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setInputValue(event.target.value)}
