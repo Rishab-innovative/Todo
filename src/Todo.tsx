@@ -10,6 +10,7 @@ const Todo: React.FC = () => {
   const [data, setData] = useState<string[]>(["shopping", "homeWork"]);
   const [checks, setChecks] = useState<boolean[]>([false, false]);
   const [inputValue, setInputValue] = useState<string>("");
+  const [checkInput, setCheckInput] = useState<boolean>(true);
 
   const handleCheck = (index: number) => {
     const newChecks: boolean[] = [...checks];
@@ -19,23 +20,20 @@ const Todo: React.FC = () => {
 
   const addTodo = () => {
     if (inputValue === "") {
-      const temp: any = document.querySelector<HTMLElement>(".inputField");
-      temp.style.borderColor = "red";
+      setCheckInput(false);
     } else {
       const newData = [inputValue, ...data];
       const newChecks = [false, ...checks];
       setData(newData);
       setChecks(newChecks);
       setInputValue("");
-      const temp: any = document.querySelector<HTMLElement>(".inputField");
-      temp.style.borderColor = "black";
+      setCheckInput(true);
     }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    const temp: any = document.querySelector<HTMLElement>(".inputField");
-    temp.style.borderColor = "black";
+    setCheckInput(true);
   };
 
   return (
@@ -46,7 +44,7 @@ const Todo: React.FC = () => {
         <h3>Todo</h3>
         <InputGroup className="mb-3">
           <Form.Control
-            className="inputField"
+            className={checkInput ? "black" : "red"}
             placeholder="Your Todo..."
             value={inputValue}
             aria-label="Default"

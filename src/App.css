@@ -3,3 +3,11 @@
     color: black;
     border: 1px solid black;
 }
+
+.red {
+    border-color: red;
+}
+
+.black {
+    border-color: black;
+}
